@@ -2,12 +2,13 @@ import axios from "axios";
 import { describe, expect, it, vi } from "vitest";
 import { renderHook, waitFor } from '@testing-library/react';
 import usePets from "../../src/hooks/usePets";
+import * as httpClient from "../../src/utils/httpClient";
 
-vi.mock('axios');
+vi.mock('usePets');
 
 describe('usePets hook test', () => {
 
-    it('should set the pets from the mock endpoint', async () => {
+    it('should set the pets from the mock httpClient endpoint', async () => {
         const mockPets = [{
             petName: 'Max',
             petBreed: 'Dog',
@@ -27,11 +28,11 @@ describe('usePets hook test', () => {
             specialCondition: 'It is a cat, a very special one'
         }];
         // Mock the response data
-        const mockGet = vi.fn().mockResolvedValue(
-            { data: { pets: mockPets } }
-        );
-        const axiosMock = vi.spyOn(axios, 'get');
-        axiosMock.mockResolvedValue({ data: { pets: mockPets } });
+        // const mockGet = vi.fn().mockResolvedValue(
+        //     { data: { pets: mockPets } }
+        // );
+        const getPetsMock = vi.spyOn(httpClient, 'getPets');
+        getPetsMock.mockResolvedValue({ data: { pets: mockPets } });
 
         // Call the usePets hook
         const { result } = renderHook(() => usePets());
@@ -39,7 +40,7 @@ describe('usePets hook test', () => {
         // Assert that the pets state has been set correctly
         await waitFor(() => {
             expect(result.current.pets).toEqual(mockPets);
-            expect(axiosMock).toBeCalledTimes(1);
+            expect(getPetsMock).toBeCalledTimes(1);
         });
     })
 });

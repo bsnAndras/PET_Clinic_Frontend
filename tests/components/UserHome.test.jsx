@@ -4,6 +4,7 @@ import { it, expect, describe, vi } from "vitest";
 import { BrowserRouter } from 'react-router-dom'
 import { UserHome } from "../../src/components/UserHome";
 import axios from 'axios';
+import * as httpClient from "../../src/utils/httpClient";
 
 const mockPetData = [
   {
@@ -59,7 +60,7 @@ vi.mock('axios')
 describe("UserHome component test", () => {
 
   it("renders all fields correctly", async() => {
-    vi.spyOn(axios, 'get').mockResolvedValue({ data: { pets: mockPetData }});
+    vi.spyOn(httpClient, 'getPets').mockResolvedValue({ data: { pets: mockPetData }});
 
     const { getByTestId, getAllByTestId } = renderWithRouter(<UserHome />);
     
