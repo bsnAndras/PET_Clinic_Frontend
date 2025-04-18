@@ -1,11 +1,7 @@
 import Drawer from '@mui/material/Drawer';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-<<<<<<<< Updated upstream:src/components/ResponsiveDrawer.jsx
 import { useAuth } from '../../hooks/store';
-========
-import { useAuth } from '../../hooks/store';
->>>>>>>> Stashed changes:src/components/admin/ResponsiveDrawer.jsx
 import { Divider, IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 
