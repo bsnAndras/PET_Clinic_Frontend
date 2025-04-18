@@ -12,7 +12,7 @@ const useClinics = () => {
         getClinics(token)
             .then(response => setClinics(response.data.clinics))
             .catch(error => console.error('Error fetching data:', error));
-    }, []);
+    }, [token]);
 
     return { clinics, setClinics };
 }
